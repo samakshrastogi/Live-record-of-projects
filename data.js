@@ -5,6 +5,16 @@ export const PROJECTS = [
     category: "Personal",
   },
   {
+    name: "Holi Celebration",
+    link: "https://rastogiholicelebration.netlify.app/",
+    category: "Family",
+  },
+  {
+    name: "Mahashivratri",
+    link: "https://shivkriparastogi.netlify.app/",
+    category: "Family",
+  },
+  {
     name: "Mahashivratri",
     link: "https://komakshmahadev.netlify.app/",
     category: "Doll",
@@ -28,5 +38,15 @@ export const PROJECTS = [
     name: "6th Friendship Anniversary",
     link: "https://6th-friendship-anniversary-my-love12.netlify.app/",
     category: "Doll",
+  },
+  {
+    name: "Agri Quiz Platform",
+    link: "https://agriquizplatform.netlify.app/",
+    category: "Doll",
+  },
+  {
+    name: "The Crust Culture",
+    link: "https://thecrustculture.netlify.app/",
+    category: "Others",
   },
 ];
