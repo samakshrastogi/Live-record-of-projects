@@ -1,8 +1,8 @@
 export const PROJECTS = [
   {
-    name: "Netflix Clone",
-    link: "https://netflix.com",
-    category: "Frontend",
+    name: "SK Cinema",
+    link: "https://sk-cinema.vercel.app/",
+    category: "Personal",
   },
   {
     name: "Portfolio Website",
