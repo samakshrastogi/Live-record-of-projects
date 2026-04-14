@@ -1,56 +1,66 @@
 import { PROJECTS } from "./data.js";
 
-const USERNAME = "user";
-const PASSWORD = "admin";
-const SESSION_KEY = "isLoggedIn";
+function getCurrentCredentials() {
+  const now = new Date();
 
-/* LOGIN */
+  const day = String(now.getDate()).padStart(2, "0");
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const year = now.getFullYear();
+
+  return {
+    username: `samako${year}`,
+    password: `d${day}/o${month}/l${year}l`
+  };
+}
+
 window.login = function () {
-  if (username.value === USERNAME && password.value === PASSWORD) {
-    localStorage.setItem(SESSION_KEY, "true");
+  const user = document.getElementById("username").value.trim();
+  const pass = document.getElementById("password").value.trim();
+
+  const creds = getCurrentCredentials();
+
+  if (user === creds.username && pass === creds.password) {
+    localStorage.setItem("isLoggedIn", "true");
     showDashboard();
   } else {
-    error.classList.remove("d-none");
+    document.getElementById("error").classList.remove("d-none");
   }
 };
 
-/* AUTO LOGIN */
 function checkSession() {
-  if (localStorage.getItem(SESSION_KEY) === "true") {
+  if (localStorage.getItem("isLoggedIn") === "true") {
     showDashboard();
   }
 }
 
-/* SHOW DASHBOARD */
 function showDashboard() {
-  loginPage.classList.add("d-none");
-  dashboard.classList.remove("d-none");
+  document.getElementById("loginPage").classList.add("d-none");
+  document.getElementById("dashboard").classList.remove("d-none");
   init();
 }
 
-/* LOGOUT */
 window.logout = function () {
-  localStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem("isLoggedIn");
   location.reload();
 };
 
-/* CATEGORY */
 function getCategories() {
   return ["all", ...new Set(PROJECTS.map(p => p.category))];
 }
 
 function loadCategories() {
-  filterCategory.innerHTML = "";
-  getCategories().forEach(c => {
-    filterCategory.innerHTML += `<option value="${c}">${c}</option>`;
+  const filter = document.getElementById("filterCategory");
+  filter.innerHTML = "";
+
+  getCategories().forEach(cat => {
+    filter.innerHTML += `<option value="${cat}">${cat}</option>`;
   });
 }
 
-/* PROJECTS */
 window.loadProjects = function () {
-  const container = projectContainer;
-  const filter = filterCategory.value;
-  const search = searchInput.value.toLowerCase();
+  const container = document.getElementById("projectContainer");
+  const filter = document.getElementById("filterCategory").value;
+  const search = document.getElementById("searchInput").value.toLowerCase();
 
   container.innerHTML = "";
 
@@ -67,39 +77,33 @@ window.loadProjects = function () {
     container.innerHTML += `
       <div class="col-12 col-md-6 col-lg-4">
         <div class="card glass card-custom text-white h-100">
-
           <img src="${preview}" 
                onerror="this.src='https://via.placeholder.com/600x400?text=Preview'"
                class="card-img-top">
 
           <div class="card-body d-flex flex-column justify-content-between">
-
             <div>
               <div class="d-flex justify-content-between mb-2">
-                <h6>${p.name}</h6>
+                <h6 class="mb-0">${p.name}</h6>
                 <span class="badge bg-primary">${p.category}</span>
               </div>
 
-              <p class="project-link">${p.link}</p>
+              <p class="project-link small">${p.link}</p>
             </div>
 
             <a href="${p.link}" target="_blank" class="text-info mt-2">
               Visit →
             </a>
-
           </div>
-
         </div>
       </div>
     `;
   });
 };
 
-/* INIT */
 function init() {
   loadCategories();
   loadProjects();
 }
 
-/* RUN */
 checkSession();
