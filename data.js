@@ -5,6 +5,11 @@ export const PROJECTS = [
     category: "Personal",
   },
   {
+    name: "Mahashivratri",
+    link: "https://komakshmahadev.netlify.app/",
+    category: "Doll",
+  },
+  {
     name: "Story of My Love",
     link: "https://lovefordoll.netlify.app/",
     category: "Doll",
